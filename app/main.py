@@ -1,5 +1,5 @@
 import sqlite3
-from random import randint
+from random import randint, choice
 
 db_path = "app/db/database.db"
 
@@ -52,7 +52,6 @@ def get_record_by_id(db_path, table_name, record_id, fields):
         if connection:
             connection.close()
 
-
 def fetch_and_print_record(db_path, table_name, record_id, fields, message_format):
     """
     Универсальная функция для получения нескольких значений полей и
@@ -72,6 +71,9 @@ def fetch_and_print_record(db_path, table_name, record_id, fields, message_forma
     else:
         print(f"Запись с id {record_id} не найдена в таблице {table_name}.")
 
+### Функции для генерации жизненого пути
+
+#Культурное происхождение и языковые особенности
 def get_region_and_languages(db_path):
     """
     Извлекает имя региона и связанные с ним языки
@@ -128,7 +130,8 @@ def life_way_common():
     # Культурное происхождение
     if LifeWayGen.region_name:
         print(f"Культурное происхождение: {LifeWayGen.region_name}")
-        print(f"Языки региона: {','.join(LifeWayGen.languages)}")
+        chosen_language = choice(LifeWayGen.languages)
+        print(f"Ваш язык: {chosen_language}")
     else:
         print("Запись с указанным id не найдена.")
     
