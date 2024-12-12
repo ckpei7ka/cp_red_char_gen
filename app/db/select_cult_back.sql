@@ -7,6 +7,5 @@ JOIN
     CULT_BACK ON REGION_LANGUAGES.region_id = CULT_BACK.id   -- Соединение с таблицей регионов
 JOIN 
     LANG ON REGION_LANGUAGES.language_id = LANG.id 	-- Соединение с таблицей языков
-WHERE CULT_BACK.name = 'Южная Азия'
 ORDER BY 
     CULT_BACK.name, LANG.name;  -- Сортировка по имени региона и имени языка
