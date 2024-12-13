@@ -98,11 +98,6 @@ class LifeWayCommon:
         self.tragic_romance()      # Выбор ваших трагических романов
         self.life_goal()           # Выбор вашей цели в жизни
 
-    # Пример метода get_region_and_languages
-    def get_region_and_languages(self, db_path):
-        # Логика получения данных
-        return "region_name", ["language1", "language2"]  # Пример возврата
-        
     def get_region_and_languages(self, db_path):
         """
         Извлекает имя региона и связанные с ним языки
