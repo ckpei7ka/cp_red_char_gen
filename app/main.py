@@ -1012,4 +1012,4 @@ if __name__ == "__main__":
 
     LifeWayCommon.__init__(db_path=db_path)
     role_instance = LifeWayRole(role_id)
-    print(role_instance.generate_text())
+    role_instance.generate_text()
