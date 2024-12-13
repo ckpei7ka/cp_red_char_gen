@@ -263,7 +263,7 @@ class LifeWayCommon:
             table_name="BIOGRAPHY",
             record_id=gend10(),
             fields=["text"],
-            message_format="Твой биография: {text}"
+            message_format="Твоя биография: {text}"
         )
 
     # Ваши друзья
