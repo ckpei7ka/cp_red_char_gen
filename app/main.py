@@ -74,66 +74,12 @@ def fetch_and_print_record(db_path, table_name, record_id, fields, message_forma
 
 ### Функции для генерации жизненого пути
 
-#Культурное происхождение и языковые особенности
-def get_region_and_languages(db_path):
-    """
-    Извлекает имя региона и связанные с ним языки
-    на основе заданного SQL-запроса
-    """
-    # Путь к SQLite базе данных
-    connection = sqlite3.connect(db_path)
-    cursor = connection.cursor()
-
-    try:
-        # Получение случайного id для случайного региона
-        random_id = gend10()
-
-        # Запрос к базе данных, с выборкой имени региона и языков
-        sql_query = """
-        SELECT 
-            CULT_BACK.text AS region_name,    -- Имя региона
-            LANG.text AS language_name       -- Имя языка
-        FROM 
-            REGION_LANGUAGES
-        JOIN 
-            CULT_BACK ON REGION_LANGUAGES.region_id = CULT_BACK.id
-        JOIN 
-            LANG ON REGION_LANGUAGES.language_id = LANG.id
-        WHERE 
-            CULT_BACK.id = ?
-        ORDER BY 
-            CULT_BACK.text, LANG.text;
-        """
-        cursor.execute(sql_query, (random_id,))
-        results = cursor.fetchall()
-
-        # Если есть данные
-        if results:
-            # Получение имени региона
-            region_name = results[0][0]
-            
-            # Список языков
-            language_names = [row[1] for row in results]
-
-            return region_name, language_names
-        else:
-            return None, None
-
-    except sqlite3.Error as e:
-        print(f"Ошибка: {e}")
-        return None, None
-
-    finally:
-        cursor.close()
-        connection.close()
-
-
 class LifeWayCommon:
-    region_name, languages = get_region_and_languages(db_path)
 
     def __init__(db_path):
         db_path = db_path
-        LifeWayCommon.cultural_origin(region_name=LifeWayCommon.region_name, languages=LifeWayCommon.languages)  # Выбор культурного происхождения и языка
+        region_name, languages = LifeWayCommon.get_region_and_languages(db_path)
+        LifeWayCommon.cultural_origin(region_name=region_name, languages=languages)  # Выбор культурного происхождения и языка
         LifeWayCommon.self_identity()       # Выбор личности
         LifeWayCommon.outfit_and_style()    # Выбор одежды и стиля
         LifeWayCommon.hairstyle()           # Выбор прически
@@ -150,7 +96,58 @@ class LifeWayCommon:
         LifeWayCommon.tragic_romance()      # Выбор ваших трагических романов
         LifeWayCommon.life_goal()           # Выбор вашей цели в жизни
         
-    
+    def get_region_and_languages(db_path):
+        """
+        Извлекает имя региона и связанные с ним языки
+        на основе заданного SQL-запроса
+        """
+        # Путь к SQLite базе данных
+        connection = sqlite3.connect(db_path)
+        cursor = connection.cursor()
+
+        try:
+            # Получение случайного id для случайного региона
+            random_id = gend10()
+
+            # Запрос к базе данных, с выборкой имени региона и языков
+            sql_query = """
+            SELECT 
+                CULT_BACK.text AS region_name,    -- Имя региона
+                LANG.text AS language_name       -- Имя языка
+            FROM 
+                REGION_LANGUAGES
+            JOIN 
+                CULT_BACK ON REGION_LANGUAGES.region_id = CULT_BACK.id
+            JOIN 
+                LANG ON REGION_LANGUAGES.language_id = LANG.id
+            WHERE 
+                CULT_BACK.id = ?
+            ORDER BY 
+                CULT_BACK.text, LANG.text;
+            """
+            cursor.execute(sql_query, (random_id,))
+            results = cursor.fetchall()
+
+            # Если есть данные
+            if results:
+                # Получение имени региона
+                region_name = results[0][0]
+                
+                # Список языков
+                language_names = [row[1] for row in results]
+
+                return region_name, language_names
+            else:
+                return None, None
+
+        except sqlite3.Error as e:
+            print(f"Ошибка: {e}")
+            return None, None
+
+        finally:
+            cursor.close()
+            connection.close()
+
     # Культурное происхождение
     def cultural_origin(region_name, languages):
         if region_name:
