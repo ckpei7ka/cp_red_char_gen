@@ -353,11 +353,28 @@ class LifeWayCommon:
 
 class LifeWayRole:
     def __init__(self, role_id):
-        if not(1 <= role_id <= 9):
+        if not(1 <= role_id <= 10):
             raise ValueError("Ваш класс не опознан")
         self.role_id = role_id
 
     def rockerboy_lifeway(self):
+        def rockerboy_init():
+            rockerboy_type()
+            group_or_solo = randint(1,2)
+            if group_or_solo < 2:
+                print("Ты выступаешь один")
+                group_before = randint(1,2)
+                if group_before < 2:
+                    print("Раньше ты выступал в группе")
+                    rockerboy_group_collapse()               
+                else:
+                    print("Ты выступаешь почти всегда один")
+                    rockerboy_where_perform()
+            else:
+                print("Ты выступаешь в группе")
+                rockerboy_where_perform()
+
+            rockerboy_anthoganist()
 
         def rockerboy_type():
             fetch_and_print_record(
@@ -395,49 +412,573 @@ class LifeWayRole:
                 message_format="За вами охотится: {text}"
             )
 
-        rockerboy_type()
-        group_or_solo = randint(1,2)
-        if group_or_solo < 2:
-            print("Ты выступаешь один")
-            group_before = randint(1,2)
-            if group_before < 2:
-                print("Раньше ты выступал в группе")
-                rockerboy_group_collapse()               
-            else:
-                print("Ты выступаешь почти всегда один")
-                rockerboy_where_perform()
-        else:
-            print("Ты выступаешь в группе")
-            rockerboy_where_perform()
-
-        rockerboy_anthoganist()
+        rockerboy_init()
 
   
 
     def solo_lifeway(self):
-        return("Твоя роль: Соло")
+        def solo_init():
+            solo_type()
+            solo_morale()
+            solo_work()
+            solo_anthoganist()
+        
+        def solo_type():
+            fetch_and_print_record(
+                db_path=db_path,
+                table_name="SOLO_TYPE",
+                record_id=gend6(),
+                fields=["text"],
+                message_format="Какой вы Соло: {text}"
+            )
+
+        def solo_morale():
+            fetch_and_print_record(
+                db_path=db_path,
+                table_name="SOLO_MORALE",
+                record_id=gend6(),
+                fields=["text"],
+                message_format="Ваш моральный кодекс: {text}"
+            )
+
+        def solo_work():
+            fetch_and_print_record(
+                db_path=db_path,
+                table_name="SOLO_WORK",
+                record_id=gend6(),
+                fields=["text"],
+                message_format="Вы обычно работаете в: {text}"
+            )
+
+        def solo_anthoganist():
+            fetch_and_print_record(
+                db_path=db_path,
+                table_name="SOLO_ANTHOGANIST",
+                record_id=gend6(),
+                fields=["text"],
+                message_format="За вами охотится: {text}"
+            )
+        
+        solo_init()
 
     def netrunner_lifeway(self):
-        return("Твоя роль: Нетраннер")
+        def netrunner_init():
+            netrunner_type()
+
+            partner = randint(1,2)
+            if partner < 2:
+                print("Вы работаете в одиночку")
+            else:
+                print("Вы работаете не один")
+                netrunner_partner()
+
+            netrunner_workspace()
+            netrunner_client()
+            netrunner_program()
+            netrunner_anthoganist()
+
+        def netrunner_type():
+            fetch_and_print_record(
+                db_path=db_path,
+                table_name="NETRUNNER_TYPE",
+                record_id=gend6(),
+                fields=["text"],
+                message_format="Какой вы Нетраннер: {text}"
+            )
+
+        def netrunner_partner():
+            fetch_and_print_record(
+                db_path=db_path,
+                table_name="NETRUNNER_PARTNER",
+                record_id=gend6(),
+                fields=["text"],
+                message_format="Ваш партнер: {text}"
+            )
+
+        def netrunner_workspace():
+            fetch_and_print_record(
+                db_path=db_path,
+                table_name="NETRUNNER_WORKSPACE",
+                record_id=gend6(),
+                fields=["text"],
+                message_format="Ваше рабочее место: {text}"
+            )
+
+        def netrunner_client():
+            fetch_and_print_record(
+                db_path=db_path,
+                table_name="NETRUNNER_CLIENT",
+                record_id=gend6(),
+                fields=["text"],
+                message_format="Ваши клиенты: {text}"
+            )
+
+        def netrunner_program():
+            fetch_and_print_record(
+                db_path=db_path,
+                table_name="NETRUNNER_PROGRAM",
+                record_id=gend6(),
+                fields=["text"],
+                message_format="Где вы берете свои программы: {text}"
+            )
+
+        def netrunner_anthoganist():
+            fetch_and_print_record(
+                db_path=db_path,
+                table_name="NETRUNNER_ANTHOGANIST",
+                record_id=gend6(),
+                fields=["text"],
+                message_format="За вами охотится: {text}"
+            )
+        
+        netrunner_init()
 
     def tech_lifeway(self):
-        return("Твоя роль: Техник")
+        def tech_init():
+            tech_type()
+
+            partner = randint(1,2)
+            if partner < 2:
+                print("Вы работаете в одиночку")
+            else:
+                print("Вы работете не один")
+                tech_partner()
+
+            tech_workspace()
+            tech_client()
+            tech_material()
+            tech_anthoganist()
+
+        def tech_type():
+            fetch_and_print_record(
+                db_path=db_path,
+                table_name="TECH_TYPE",
+                record_id=gend10(),
+                fields=["text"],
+                message_format="Какой вы Техник: {text}"
+            )
+
+        def tech_partner():
+            fetch_and_print_record(
+                db_path=db_path,
+                table_name="TECH_PARTNER",
+                record_id=gend6(),
+                fields=["text"],
+                message_format="Ваш партнер: {text}"
+            )
+
+        def tech_workspace():
+            fetch_and_print_record(
+                db_path=db_path,
+                table_name="TECH_WORKSPACE",
+                record_id=gend6(),
+                fields=["text"],
+                message_format="Ваше рабочее место: {text}"
+            )
+
+        def tech_client():
+            fetch_and_print_record(
+                db_path=db_path,
+                table_name="TECH_CLIENT",
+                record_id=gend6(),
+                fields=["text"],
+                message_format="Ваши основные клиенты: {text}"
+            )
+
+        def tech_material():
+            fetch_and_print_record(
+                db_path=db_path,
+                table_name="TECH_MATERIAL",
+                record_id=gend6(),
+                fields=["text"],
+                message_format="Вы получаете материалы : {text}"
+            )
+
+        def tech_anthoganist():
+            fetch_and_print_record(
+                db_path=db_path,
+                table_name="TECH_ANTHOGANIST",
+                record_id=gend6(),
+                fields=["text"],
+                message_format="За вами охотится: {text}"
+            )
+        
+        tech_init()
 
     def medtech_lifeway(self):
-        return("Твоя роль: Медтехник")
+        def medtech_init():
+            medtech_type()
+
+            partner = randint(1,2)
+            if partner < 2:
+                print("Вы работаете в одиночку")
+            else:
+                print("Вы работаете не один")
+                medtech_partner()
+            
+            medtech_workspace()
+            medtech_client()
+            medtech_material()
+        
+        def medtech_type():
+            fetch_and_print_record(
+                db_path=db_path,
+                table_name="MEDTECH_TYPE",
+                record_id=gend10(),
+                fields=["text"],
+                message_format="Какой вы Медтехник: {text}"
+            )
+
+        def medtech_partner():
+            fetch_and_print_record(
+                db_path=db_path,
+                table_name="MEDTECH_PARTNER",
+                record_id=gend6(),
+                fields=["text"],
+                message_format="Ваш партнер: {text}"
+            )
+
+        def medtech_workspace():
+            fetch_and_print_record(
+                db_path=db_path,
+                table_name="MEDTECH_WORKSPACE",
+                record_id=gend6(),
+                fields=["text"],
+                message_format="Ваше рабочее место: {text}"
+            )
+
+        def medtech_client():
+            fetch_and_print_record(
+                db_path=db_path,
+                table_name="MEDTECH_CLIENT",
+                record_id=gend6(),
+                fields=["text"],
+                message_format="Ваши клиенты: {text}"
+            )
+        
+        def medtech_material():
+            fetch_and_print_record(
+                db_path=db_path,
+                table_name="MEDTECH_MATERIAL",
+                record_id=gend6(),
+                fields=["text"],
+                message_format="Вы получаете материалы: {text}"
+            )
+        
+        medtech_init()
 
     def media_lifeway(self):
-        return("Твоя роль: Медиа")
+
+        def media_init():
+            media_type()
+            media_publicity()
+            media_ethic()
+            media_story()
+        
+        def media_type():
+            fetch_and_print_record(
+                db_path=db_path,
+                table_name="MEDIA_TYPE",
+                record_id=gend6(),
+                fields=["text"],
+                message_format="Какой вы Медиа: {text}"
+            )
+
+        def media_publicity():
+            fetch_and_print_record(
+                db_path=db_path,
+                table_name="MEDIA_PUBLICITY",
+                record_id=gend6(),
+                fields=["text"],
+                message_format="Вы находите огласку: {text}"
+            )
+
+        def media_ethic():
+            fetch_and_print_record(
+                db_path=db_path,
+                table_name="MEDIA_ETHICS",
+                record_id=gend6(),
+                fields=["text"],
+                message_format="Ваша этика: {text}"
+            )
+        
+        def media_story():
+            fetch_and_print_record(
+                db_path=db_path,
+                table_name="MEDIA_STORY",
+                record_id=gend6(),
+                fields=["text"],
+                message_format="Вы рассказываете о: {text}"
+            )
+        
+        media_init()
 
     def lowyer_lifeway(self):
-        return("Твоя роль: Законник")
+        def lowyer_init():
+            lowyer_type()
+            lowyer_jurisdiction()
+            lowyer_corrupt()
+            lowyer_anthoganist()
+            lowyer_target()
+        
+        def lowyer_type():
+            fetch_and_print_record(
+                db_path=db_path,
+                table_name="LOWYER_TYPE",
+                record_id=gend6(),
+                fields=["text"],
+                message_format="Какой вы Законник: {text}"
+            )
+        
+        def lowyer_jurisdiction():
+            fetch_and_print_record(
+                db_path=db_path,
+                table_name="LOWYER_JURISDICTION",
+                record_id=gend6(),
+                fields=["text"],
+                message_format="Ваша юрисдикция: {text}"
+            )
+
+        def lowyer_corrupt():
+            fetch_and_print_record(
+                db_path=db_path,
+                table_name="LOWYER_CORRUPT",
+                record_id=gend6(),
+                fields=["text"],
+                message_format="Насколько вы коррумпированы: {text}"
+            )
+
+        def lowyer_anthoganist():
+            fetch_and_print_record(
+                db_path=db_path,
+                table_name="LOWYER_ANTHOGANIST",
+                record_id=gend6(),
+                fields=["text"],
+                message_format="За вами охотится: {text}"
+            )
+        
+        def lowyer_target():
+            fetch_and_print_record(
+                db_path=db_path,
+                table_name="LOWYER_TARGET",
+                record_id=gend6(),
+                fields=["text"],
+                message_format="Ваша основная цель: {text}"
+            )
+        
+        
+        lowyer_init()
 
     def corp_lifeway(self):
-        return("Твоя роль: Корпорат")
+        def corp_init():
+            corp_type()
+            corp_department()
+            corp_goodbad()
+            corp_where()
+            corp_anthoganist()
+            corp_boss()
+
+        def corp_type():
+            fetch_and_print_record(
+                db_path=db_path,
+                table_name="CORP_TYPE",
+                record_id=gend10(),
+                fields=["text"],
+                message_format="Ваша компания занимается: {text}"
+            )
+
+        def corp_department():
+             fetch_and_print_record(
+                db_path=db_path,
+                table_name="CORP_DEPARTMENT",
+                record_id=gend6(),
+                fields=["text"],
+                message_format="Вы работаете в отделе: {text}"
+            )
+
+        def corp_goodbad():
+             fetch_and_print_record(
+                db_path=db_path,
+                table_name="CORP_GOOD_BAD",
+                record_id=gend6(),
+                fields=["text"],
+                message_format="Насколько хороша/плоха ваша корпа: {text}"
+            )
+
+        def corp_where():
+             fetch_and_print_record(
+                db_path=db_path,
+                table_name="CORP_WHERE",
+                record_id=gend6(),
+                fields=["text"],
+                message_format="Ваша корпа находится: {text}"
+            )
+
+        def corp_anthoganist():
+             fetch_and_print_record(
+                db_path=db_path,
+                table_name="CORP_ANTHOGANIST",
+                record_id=gend6(),
+                fields=["text"],
+                message_format="За вами охотится: {text}"
+            )
+
+        def corp_boss():
+             fetch_and_print_record(
+                db_path=db_path,
+                table_name="CORP_BOSS",
+                record_id=gend6(),
+                fields=["text"],
+                message_format="Отношения с вашим босом: {text}"
+            )
+
+        corp_init()
 
     def nomad_lifeway(self):
-        return("Твоя роль: Кочевник")
-    
+        def nomad_init():
+            nomad_swarm()
+            nomad_based_on()
+            nomad_type()
+            nomad_philosophy()
+            nomad_anthoganist()
+        
+        def nomad_based_on():
+            match gend6() / 2:
+                case 1:
+                    print("Ваша стая базируется на земле")
+                    nomad_land()
+                case 2:
+                    print("Ваша стая базируется в воздухе")
+                    nomad_air()
+                case 3:
+                    print("Ваша стая базируется в море")
+                    nomad_ocean()
+
+
+        def nomad_swarm():
+            fetch_and_print_record(
+                db_path=db_path,
+                table_name="NOMAD_SWARM",
+                record_id=gend6(),
+                fields=["text"],
+                message_format="Размер вашей стаи: {text}"
+            )
+        
+        def nomad_land():
+            fetch_and_print_record(
+                db_path=db_path,
+                table_name="NOMAD_LAND",
+                record_id=gend10(),
+                fields=["text"],
+                message_format="На суше ваша стая занимается: {text}"
+            )
+        
+        def nomad_air():
+            fetch_and_print_record(
+                db_path=db_path,
+                table_name="NOMAD_AIR",
+                record_id=gend6(),
+                fields=["text"],
+                message_format="В воздухе ваша стая занимается: {text}"
+            )
+
+        def nomad_ocean():
+            fetch_and_print_record(
+                db_path=db_path,
+                table_name="NOMAD_OCEAN",
+                record_id=gend6(),
+                fields=["text"],
+                message_format="В море ваша стая занимается: {text}"
+            )
+
+        def nomad_type():
+            fetch_and_print_record(
+                db_path=db_path,
+                table_name="NOMAD_TYPE",
+                record_id=gend6(),
+                fields=["text"],
+                message_format="Для клана вы занимаетесь: {text}"
+            )
+
+        def nomad_philosophy():
+            fetch_and_print_record(
+                db_path=db_path,
+                table_name="NOMAD_PHILOSOPHY",
+                record_id=gend6(),
+                fields=["text"],
+                message_format="Философия вашей стаи: {text}"
+            )
+        def nomad_anthoganist():
+            fetch_and_print_record(
+                db_path=db_path,
+                table_name="NOMAD_ANTHOGANIST",
+                record_id=gend6(),
+                fields=["text"],
+                message_format="За вами охотится: {text}"
+            )
+        
+        nomad_init()
+
+    def fixer_lifeway(self):
+        def fixer_init():
+            fixer_type()
+            partner = randint(1,2)
+            if partner < 2:
+                print("Вы работаете в одиночку")
+            else:
+                print("Вы работаете не один")
+                fixer_partner()
+            fixer_office()
+            fixer_client()
+            fixer_anthoganist()
+
+        def fixer_type():
+            fetch_and_print_record(
+                db_path=db_path,
+                table_name="FIXER_TYPE",
+                record_id=gend10(),
+                fields=["text"],
+                message_format="Какой вы Фиксер: {text}"
+            )
+
+        def fixer_partner():
+            fetch_and_print_record(
+                db_path=db_path,
+                table_name="FIXER_PARTNER",
+                record_id=gend6(),
+                fields=["text"],
+                message_format="Ваш партнер: {text}"
+            )
+
+        def fixer_office():
+            fetch_and_print_record(
+                db_path=db_path,
+                table_name="FIXER_OFFICE",
+                record_id=gend6(),
+                fields=["text"],
+                message_format="Ваш офис: {text}"
+            )
+
+        def fixer_client():
+            fetch_and_print_record(
+                db_path=db_path,
+                table_name="FIXER_CLIENT",
+                record_id=gend6(),
+                fields=["text"],
+                message_format="Ваши клиенты: {text}"
+            )
+
+        def fixer_anthoganist():
+            fetch_and_print_record(
+                db_path=db_path,
+                table_name="FIXER_ANTHOGANIST",
+                record_id=gend6(),
+                fields=["text"],
+                message_format="За вами охотится: {text}"
+            )
+
+        fixer_init()
+
     def generate_text(self):
         # Сопоставление role_id с методом обработки
         lifeway_method = {
@@ -450,6 +991,7 @@ class LifeWayRole:
             7: self.lowyer_lifeway,
             8: self.corp_lifeway,
             9: self.nomad_lifeway,
+            10: self.fixer_lifeway,
         }
 
         method = lifeway_method.get(self.role_id)
@@ -463,7 +1005,7 @@ if __name__ == "__main__":
     role_id = fetch_and_print_record(
         db_path=db_path,
         table_name="ROLE",
-        record_id=randint(1,9),
+        record_id=gend10(),
         fields=["text"],
         message_format="Твоя роль:{text}"
     )
