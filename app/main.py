@@ -75,28 +75,35 @@ def fetch_and_print_record(db_path, table_name, record_id, fields, message_forma
 ### Функции для генерации жизненого пути
 
 class LifeWayCommon:
-
-    def __init__(db_path):
-        db_path = db_path
-        region_name, languages = LifeWayCommon.get_region_and_languages(db_path)
-        LifeWayCommon.cultural_origin(region_name=region_name, languages=languages)  # Выбор культурного происхождения и языка
-        LifeWayCommon.self_identity()       # Выбор личности
-        LifeWayCommon.outfit_and_style()    # Выбор одежды и стиля
-        LifeWayCommon.hairstyle()           # Выбор прически
-        LifeWayCommon.addictions()          # Выбор без чего вы не появляетесь
-        LifeWayCommon.self_value()          # Выбор что для вас ценнее всего
-        LifeWayCommon.feel_majority()       # Выбор отношения к большенству людей 
-        LifeWayCommon.closest_person()      # Выбор самого близкого человека
-        LifeWayCommon.valuable_thing()      # Выбор самого ценного, чем вы обладаете
-        LifeWayCommon.how_did_you_life()    # Выбор вашего семейного прошлого
-        LifeWayCommon.childhood()           # Выбор вашего детства
-        LifeWayCommon.biography()           # Выбор биографии
-        LifeWayCommon.friends()             # Выбор ваших друзей
-        LifeWayCommon.enemies()             # Выбор ваших врагов
-        LifeWayCommon.tragic_romance()      # Выбор ваших трагических романов
-        LifeWayCommon.life_goal()           # Выбор вашей цели в жизни
+    def __init__(self, db_path=None):  # Конструктор с дефолтным значением db_path
+        # Если db_path не передан, используем значение по умолчанию
+        self.db_path = db_path or "app/db/database.db"
         
-    def get_region_and_languages(db_path):
+        # Вызываем нужные методы с переданными или обработанными данными
+        region_name, languages = self.get_region_and_languages(self.db_path)
+        self.cultural_origin(region_name=region_name, languages=languages)  # Выбор культурного происхождения и языка
+        self.self_identity()       # Выбор личности
+        self.outfit_and_style()    # Выбор одежды и стиля
+        self.hairstyle()           # Выбор прически
+        self.addictions()          # Выбор без чего вы не появляетесь
+        self.self_value()          # Выбор что для вас ценнее всего
+        self.feel_majority()       # Выбор отношения к большинству людей 
+        self.closest_person()      # Выбор самого близкого человека
+        self.valuable_thing()      # Выбор самого ценного, чем вы обладаете
+        self.how_did_you_life()    # Выбор вашего семейного прошлого
+        self.childhood()           # Выбор вашего детства
+        self.biography()           # Выбор биографии
+        self.friends()             # Выбор ваших друзей
+        self.enemies()             # Выбор ваших врагов
+        self.tragic_romance()      # Выбор ваших трагических романов
+        self.life_goal()           # Выбор вашей цели в жизни
+
+    # Пример метода get_region_and_languages
+    def get_region_and_languages(self, db_path):
+        # Логика получения данных
+        return "region_name", ["language1", "language2"]  # Пример возврата
+        
+    def get_region_and_languages(self, db_path):
         """
         Извлекает имя региона и связанные с ним языки
         на основе заданного SQL-запроса
@@ -149,7 +156,7 @@ class LifeWayCommon:
             connection.close()
 
     # Культурное происхождение
-    def cultural_origin(region_name, languages):
+    def cultural_origin(self, region_name, languages):
         if region_name:
             print(f"Культурное происхождение: {region_name}")
             chosen_language = choice(languages)
@@ -158,7 +165,7 @@ class LifeWayCommon:
             print("Ваш регион не найден.")
 
     # Ваша личность
-    def self_identity():
+    def self_identity(self):
         fetch_and_print_record(
             db_path=db_path,
             table_name="SELF_IDENTITY",
@@ -168,7 +175,7 @@ class LifeWayCommon:
         )    
 
     # Одежда и личный стиль
-    def outfit_and_style():
+    def outfit_and_style(self):
         fetch_and_print_record(
             db_path=db_path,
             table_name="OUTFIT_AND_STYLE",
@@ -177,7 +184,7 @@ class LifeWayCommon:
             message_format="Твой стиль: {text}"
         )
     # Прическа
-    def hairstyle():
+    def hairstyle(self):
         fetch_and_print_record(
             db_path=db_path,
             table_name="HAIRSTYLE",
@@ -187,7 +194,7 @@ class LifeWayCommon:
         )
 
     # Пристрастия, без которых вы не появляетесь
-    def addictions():
+    def addictions(self):
         fetch_and_print_record(
             db_path=db_path,
             table_name="ADDICTIONS",
@@ -197,7 +204,7 @@ class LifeWayCommon:
         )
 
     # Что для вас ценнее всего
-    def self_value():
+    def self_value(self):
         fetch_and_print_record(
             db_path=db_path,
             table_name="SELF_VALUE",
@@ -207,7 +214,7 @@ class LifeWayCommon:
         )
     
     # Отношение к большинству
-    def feel_majority():
+    def feel_majority(self):
         fetch_and_print_record(
             db_path=db_path,
             table_name="FEEL_MAJORITY",
@@ -217,7 +224,7 @@ class LifeWayCommon:
         )
 
     # Самый близкий человек в жизни
-    def closest_person():
+    def closest_person(self):
         fetch_and_print_record(
             db_path=db_path,
             table_name="CLOSEST_PERSON",
@@ -227,7 +234,7 @@ class LifeWayCommon:
         )
 
     # Самое ценное, чем вы обладаете
-    def valuable_thing():
+    def valuable_thing(self):
         fetch_and_print_record(
             db_path=db_path,
             table_name="VALUABLE_THING",
@@ -237,7 +244,7 @@ class LifeWayCommon:
         )
 
     # Ваше семейное прошлое
-    def how_did_you_life():
+    def how_did_you_life(self):
         fetch_and_print_record(
             db_path=db_path,
             table_name="HOW_DID_YOU_LIFE",
@@ -247,7 +254,7 @@ class LifeWayCommon:
         )
 
     # Ваше детство
-    def childhood():
+    def childhood(self):
         fetch_and_print_record(
             db_path=db_path,
             table_name="CHILDHOOD",
@@ -257,7 +264,7 @@ class LifeWayCommon:
         )
 
     # Биография
-    def biography():
+    def biography(self):
         fetch_and_print_record(
             db_path=db_path,
             table_name="BIOGRAPHY",
@@ -267,7 +274,7 @@ class LifeWayCommon:
         )
 
     # Ваши друзья
-    def friends():
+    def friends(self):
         num_friend = gend10() - 7
         if num_friend > 0:
             print(f"Вы считаете, что у вас {num_friend} друзей")
@@ -283,7 +290,7 @@ class LifeWayCommon:
             print("Вы считаете, что у вас нет друзей")
 
     # Ваши враги
-    def enemies():
+    def enemies(self):
         num_enemy = gend10() - 7
         if num_enemy > 0:
             print(f"Вы считаете, что у вас {num_enemy} врагов")
@@ -326,7 +333,7 @@ class LifeWayCommon:
 
 
     # Ваш трагический роман
-    def tragic_romance():
+    def tragic_romance(self):
         num_tragic_romance = gend10() - 7
         if num_tragic_romance > 0:
             print(f"Вы считаете, что у вас {num_tragic_romance} трагических романов")
@@ -342,7 +349,7 @@ class LifeWayCommon:
             print("Вы считаете, что у вас нет трагических романов ")
 
     # Ваша цель всей жизни
-    def life_goal():
+    def life_goal(self):
         fetch_and_print_record(
             db_path=db_path,
             table_name="LIFE_GOAL",
@@ -1009,7 +1016,6 @@ if __name__ == "__main__":
         fields=["text"],
         message_format="Твоя роль:{text}"
     )
-
-    LifeWayCommon.__init__(db_path=db_path)
+    lifeway_common = LifeWayCommon(db_path="app/db/database.db")
     role_instance = LifeWayRole(role_id)
     role_instance.generate_text()
