@@ -126,198 +126,237 @@ def get_region_and_languages(db_path):
         cursor.close()
         connection.close()
 
-def life_way_common():
-    # Культурное происхождение
-    if LifeWayGen.region_name:
-        print(f"Культурное происхождение: {LifeWayGen.region_name}")
-        chosen_language = choice(LifeWayGen.languages)
-        print(f"Ваш язык: {chosen_language}")
-    else:
-        print("Запись с указанным id не найдена.")
+
+class LifeWayCommon:
+    region_name, languages = get_region_and_languages(db_path)
+
+    def __init__(db_path):
+        db_path = db_path
+        LifeWayCommon.cultural_origin(region_name=LifeWayCommon.region_name, languages=LifeWayCommon.languages)  # Выбор культурного происхождения и языка
+        LifeWayCommon.self_identity()       # Выбор личности
+        LifeWayCommon.outfit_and_style()    # Выбор одежды и стиля
+        LifeWayCommon.hairstyle()           # Выбор прически
+        LifeWayCommon.addictions()          # Выбор без чего вы не появляетесь
+        LifeWayCommon.self_value()          # Выбор что для вас ценнее всего
+        LifeWayCommon.feel_majority()       # Выбор отношения к большенству людей 
+        LifeWayCommon.closest_person()      # Выбор самого близкого человека
+        LifeWayCommon.valuable_thing()      # Выбор самого ценного, чем вы обладаете
+        LifeWayCommon.how_did_you_life()    # Выбор вашего семейного прошлого
+        LifeWayCommon.childhood()           # Выбор вашего детства
+        LifeWayCommon.biography()           # Выбор биографии
+        LifeWayCommon.friends()             # Выбор ваших друзей
+        LifeWayCommon.enemies()             # Выбор ваших врагов
+        LifeWayCommon.tragic_romance()      # Выбор ваших трагических романов
+        LifeWayCommon.life_goal()           # Выбор вашей цели в жизни
+        
     
+    # Культурное происхождение
+    def cultural_origin(region_name, languages):
+        if region_name:
+            print(f"Культурное происхождение: {region_name}")
+            chosen_language = choice(languages)
+            print(f"Ваш язык: {chosen_language}")
+        else:
+            print("Запись с указанным id не найдена.")
+
     # Ваша личность
-    fetch_and_print_record(
-        db_path=db_path,
-        table_name="SELF_IDENTITY",
-        record_id=gend10(),
-        fields=["text"],
-        message_format="Вы представляете из себя: {text}"
-    )
+    def self_identity():
+        fetch_and_print_record(
+            db_path=db_path,
+            table_name="SELF_IDENTITY",
+            record_id=gend10(),
+            fields=["text"],
+            message_format="Вы представляете из себя: {text}"
+        )    
 
     # Одежда и личный стиль
-    fetch_and_print_record(
-        db_path=db_path,
-        table_name="OUTFIT_AND_STYLE",
-        record_id=gend10(),
-        fields=["text"],
-        message_format="Твой стиль: {text}"
-    )
-
+    def outfit_and_style():
+        fetch_and_print_record(
+            db_path=db_path,
+            table_name="OUTFIT_AND_STYLE",
+            record_id=gend10(),
+            fields=["text"],
+            message_format="Твой стиль: {text}"
+        )
     # Прическа
-    fetch_and_print_record(
-        db_path=db_path,
-        table_name="HAIRSTYLE",
-        record_id=gend10(),
-        fields=["text"],
-        message_format="Твоя прическа: {text}"
-    )
-    
+    def hairstyle():
+        fetch_and_print_record(
+            db_path=db_path,
+            table_name="HAIRSTYLE",
+            record_id=gend10(),
+            fields=["text"],
+            message_format="Твоя прическа: {text}"
+        )
+
     # Пристрастия, без которых вы не появляетесь
-    fetch_and_print_record(
-        db_path=db_path,
-        table_name="ADDICTIONS",
-        record_id=gend10(),
-        fields=["text"],
-        message_format="Вы не выходите без: {text}"
-    )
+    def addictions():
+        fetch_and_print_record(
+            db_path=db_path,
+            table_name="ADDICTIONS",
+            record_id=gend10(),
+            fields=["text"],
+            message_format="Вы не выходите без: {text}"
+        )
 
     # Что для вас ценнее всего
-    fetch_and_print_record(
-        db_path=db_path,
-        table_name="SELF_VALUE",
-        record_id=gend10(),
-        fields=["text"],
-        message_format="Для тебя ценнее всего: {text}"
-    )
-
-    # Ваше отношение к большинству людей
-    fetch_and_print_record(
-        db_path=db_path,
-        table_name="FEEL_MAJORITY",
-        record_id=gend10(),
-        fields=["text"],
-        message_format="Твое отношение к большинству людей: {text}"
-    )
+    def self_value():
+        fetch_and_print_record(
+            db_path=db_path,
+            table_name="SELF_VALUE",
+            record_id=gend10(),
+            fields=["text"],
+            message_format="Для тебя ценнее всего: {text}"
+        )
+    
+    # Отношение к большинству
+    def feel_majority():
+        fetch_and_print_record(
+            db_path=db_path,
+            table_name="FEEL_MAJORITY",
+            record_id=gend10(),
+            fields=["text"],
+            message_format="Твое отношение к большинству людей: {text}"
+        )
 
     # Самый близкий человек в жизни
-    fetch_and_print_record(
-        db_path=db_path,
-        table_name="CLOSEST_PERSON",
-        record_id=gend10(),
-        fields=["text"],
-        message_format="Твой самый близкий человек в жизни: {text}"
-    )
+    def closest_person():
+        fetch_and_print_record(
+            db_path=db_path,
+            table_name="CLOSEST_PERSON",
+            record_id=gend10(),
+            fields=["text"],
+            message_format="Твой самый близкий человек в жизни: {text}"
+        )
 
     # Самое ценное, чем вы обладаете
-    fetch_and_print_record(
-        db_path=db_path,
-        table_name="VALUABLE_THING",
-        record_id=gend10(),
-        fields=["text"],
-        message_format="Самое ценное, чем вы обладаете: {text}"
-    )
+    def valuable_thing():
+        fetch_and_print_record(
+            db_path=db_path,
+            table_name="VALUABLE_THING",
+            record_id=gend10(),
+            fields=["text"],
+            message_format="Самое ценное, чем вы обладаете: {text}"
+        )
 
     # Ваше семейное прошлое
-    fetch_and_print_record(
-        db_path=db_path,
-        table_name="HOW_DID_YOU_LIFE",
-        record_id=gend10(),
-        fields=["text", "discription"],
-        message_format="Семейное прошлое: {text}, , \nОписание прошлого: {discription}"
-    )
+    def how_did_you_life():
+        fetch_and_print_record(
+            db_path=db_path,
+            table_name="HOW_DID_YOU_LIFE",
+            record_id=gend10(),
+            fields=["text", "discription"],
+            message_format="Семейное прошлое: {text}, , \nОписание прошлого: {discription}"
+        )
 
     # Ваше детство
-    fetch_and_print_record(
-        db_path=db_path,
-        table_name="CHILDHOOD",
-        record_id=gend10(),
-        fields=["text"],
-        message_format="Твое детство: {text}"
-    )
+    def childhood():
+        fetch_and_print_record(
+            db_path=db_path,
+            table_name="CHILDHOOD",
+            record_id=gend10(),
+            fields=["text"],
+            message_format="Твое детство: {text}"
+        )
 
     # Биография
-    fetch_and_print_record(
-        db_path=db_path,
-        table_name="BIOGRAPHY",
-        record_id=gend10(),
-        fields=["text"],
-        message_format="Твой биография: {text}"
-    )
+    def biography():
+        fetch_and_print_record(
+            db_path=db_path,
+            table_name="BIOGRAPHY",
+            record_id=gend10(),
+            fields=["text"],
+            message_format="Твой биография: {text}"
+        )
 
     # Ваши друзья
-    num_friend = gend10() - 7
-    if num_friend > 0:
-        print(f"Вы считаете, что у вас {num_friend} друзей")
-        for i in range(num_friend):
-            fetch_and_print_record(
-                db_path=db_path,
-                table_name="FRIEND_WHO",
-                record_id=gend10(),
-                fields=["text"],
-                message_format="Твой друг: {text}"
-    )
-    else:
-        print("Вы считаете, что у вас нет друзей")
+    def friends():
+        num_friend = gend10() - 7
+        if num_friend > 0:
+            print(f"Вы считаете, что у вас {num_friend} друзей")
+            for i in range(num_friend):
+                fetch_and_print_record(
+                    db_path=db_path,
+                    table_name="FRIEND_WHO",
+                    record_id=gend10(),
+                    fields=["text"],
+                    message_format="Твой друг: {text}"
+        )
+        else:
+            print("Вы считаете, что у вас нет друзей")
 
     # Ваши враги
-    num_enemy = gend10() - 7
-    if num_enemy > 0:
-        print(f"Вы считаете, что у вас {num_enemy} врагов")
-        for i in range(num_enemy):
-            # Кто твой враг
-            fetch_and_print_record(
-                db_path=db_path,
-                table_name="ENEMY_WHO",
-                record_id=gend10(),
-                fields=["text"],
-                message_format="Твой враг: {text}"
-            )
-            # Что послужило причиной? Кто был обижен
-            fetch_and_print_record(
-                db_path=db_path,
-                table_name="ENEMY_REASON",
-                record_id=gend10(),
-                fields=["text"],
-                message_format="Причина вражды: {text}"
-            )
-            # Как они могут напасть на вас?
-            fetch_and_print_record(
-                db_path=db_path,
-                table_name="ENEMY_WHO",
-                record_id=gend10(),
-                fields=["attack"],
-                message_format="Они могут напасть на вас: {attack}"
-            )
-            # Что вы/они собираетесь делать
-            fetch_and_print_record(
-                db_path=db_path,
-                table_name="ENEMY_REVENGE",
-                record_id=gend10(),
-                fields=["text"],
-                message_format="Что вы/они собираетесь делать: {text}"
-            )
+    def enemies():
+        num_enemy = gend10() - 7
+        if num_enemy > 0:
+            print(f"Вы считаете, что у вас {num_enemy} врагов")
+            for i in range(num_enemy):
+                # Кто твой враг
+                fetch_and_print_record(
+                    db_path=db_path,
+                    table_name="ENEMY_WHO",
+                    record_id=gend10(),
+                    fields=["text"],
+                    message_format="Твой враг: {text}"
+                )
+                # Что послужило причиной? Кто был обижен
+                fetch_and_print_record(
+                    db_path=db_path,
+                    table_name="ENEMY_REASON",
+                    record_id=gend10(),
+                    fields=["text"],
+                    message_format="Причина вражды: {text}"
+                )
+                # Как они могут напасть на вас?
+                fetch_and_print_record(
+                    db_path=db_path,
+                    table_name="ENEMY_WHO",
+                    record_id=gend10(),
+                    fields=["attack"],
+                    message_format="Они могут напасть на вас: {attack}"
+                )
+                # Что вы/они собираетесь делать
+                fetch_and_print_record(
+                    db_path=db_path,
+                    table_name="ENEMY_REVENGE",
+                    record_id=gend10(),
+                    fields=["text"],
+                    message_format="Что вы/они собираетесь делать: {text}"
+                )
 
-    else:
-        print("Вы считаете, что у вас нет врагов")
+        else:
+            print("Вы считаете, что у вас нет врагов")
+
 
     # Ваш трагический роман
-    num_tragic_romance = gend10() - 7
-    if num_tragic_romance > 0:
-        print(f"Вы считаете, что у вас {num_tragic_romance} трагических романов")
-        for i in range(num_tragic_romance):
-            fetch_and_print_record(
-                db_path=db_path,
-                table_name="TRAGIC_ROMANCE",
-                record_id=gend10(),
-                fields=["text"],
-                message_format="Твой трагический роман: {text}"
-    )
-    else:
-        print("Вы считаете, что у вас нет трагических романов ")
+    def tragic_romance():
+        num_tragic_romance = gend10() - 7
+        if num_tragic_romance > 0:
+            print(f"Вы считаете, что у вас {num_tragic_romance} трагических романов")
+            for i in range(num_tragic_romance):
+                fetch_and_print_record(
+                    db_path=db_path,
+                    table_name="TRAGIC_ROMANCE",
+                    record_id=gend10(),
+                    fields=["text"],
+                    message_format="Твой трагический роман: {text}"
+        )
+        else:
+            print("Вы считаете, что у вас нет трагических романов ")
 
     # Ваша цель всей жизни
-    fetch_and_print_record(
-        db_path=db_path,
-        table_name="LIFE_GOAL",
-        record_id=gend10(),
-        fields=["text"],
-        message_format="Твоя жизненная цель: {text}"
-    )
+    def life_goal():
+        fetch_and_print_record(
+            db_path=db_path,
+            table_name="LIFE_GOAL",
+            record_id=gend10(),
+            fields=["text"],
+            message_format="Твоя жизненная цель: {text}"
+        )
 
-class LifeWayGen:
-    region_name, languages = get_region_and_languages(db_path)
+# class LifeWayGen:
+#     region_name, languages = get_region_and_languages(db_path)
     
 
 
 if __name__ == "__main__":
-    life_way_common()
+    LifeWayCommon.__init__(db_path=db_path)
