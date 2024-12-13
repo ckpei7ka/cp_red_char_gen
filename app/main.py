@@ -158,7 +158,7 @@ class LifeWayCommon:
             chosen_language = choice(languages)
             print(f"Ваш язык: {chosen_language}")
         else:
-            print("Запись с указанным id не найдена.")
+            print("Ваш регион не найден.")
 
     # Ваша личность
     def self_identity():
@@ -361,7 +361,61 @@ class LifeWayRole:
         self.role_id = role_id
 
     def rockerboy_lifeway(self):
-        return("Твоя роль: Рокербой")
+
+        def rockerboy_type():
+            fetch_and_print_record(
+                db_path=db_path,
+                table_name="ROCKERBOY_TYPE",
+                record_id=gend10(),
+                fields=["text"],
+                message_format="Какой вы Рокеробой: {text}"
+            )
+
+        def rockerboy_group_collapse():
+            fetch_and_print_record(
+                db_path=db_path,
+                table_name="ROCKERBOY_GROUP_COLLAPSE",
+                record_id=gend6(),
+                fields=["text"],
+                message_format="Вы ушли из группы из-за: {text}"
+            )
+
+        def rockerboy_where_perform():
+            fetch_and_print_record(
+                db_path=db_path,
+                table_name="ROCKERBOY_WHERE_PERFORM",
+                record_id=gend6(),
+                fields=["text"],
+                message_format="Вы выступаете: {text}"
+            )
+
+        def rockerboy_anthoganist():
+            fetch_and_print_record(
+                db_path=db_path,
+                table_name="ROCKERBOY_ANTHOGANIST",
+                record_id=gend6(),
+                fields=["text"],
+                message_format="За вами охотится: {text}"
+            )
+
+        rockerboy_type()
+        group_or_solo = randint(1,2)
+        if group_or_solo < 2:
+            print("Ты выступаешь один")
+            group_before = randint(1,2)
+            if group_before < 2:
+                print("Раньше ты выступал в группе")
+                rockerboy_group_collapse()               
+            else:
+                print("Ты выступаешь почти всегда один")
+                rockerboy_where_perform()
+        else:
+            print("Ты выступаешь в группе")
+            rockerboy_where_perform()
+
+        rockerboy_anthoganist()
+
+  
 
     def solo_lifeway(self):
         return("Твоя роль: Соло")
