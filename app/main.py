@@ -70,6 +70,7 @@ def fetch_and_print_record(db_path, table_name, record_id, fields, message_forma
         print(message_format.format(**record))
     else:
         print(f"Запись с id {record_id} не найдена в таблице {table_name}.")
+    return record_id
 
 ### Функции для генерации жизненого пути
 
@@ -245,7 +246,7 @@ class LifeWayCommon:
             table_name="HOW_DID_YOU_LIFE",
             record_id=gend10(),
             fields=["text", "discription"],
-            message_format="Семейное прошлое: {text}, , \nОписание прошлого: {discription}"
+            message_format="Семейное прошлое: {text} \nОписание прошлого: {discription}"
         )
 
     # Ваше детство
@@ -353,10 +354,69 @@ class LifeWayCommon:
             message_format="Твоя жизненная цель: {text}"
         )
 
-# class LifeWayGen:
-#     region_name, languages = get_region_and_languages(db_path)
-    
+class LifeWayRole:
+    def __init__(self, role_id):
+        if not(1 <= role_id <= 9):
+            raise ValueError("Ваш класс не опознан")
+        self.role_id = role_id
 
+    def rockerboy_lifeway(self):
+        return("Твоя роль: Рокербой")
+
+    def solo_lifeway(self):
+        return("Твоя роль: Соло")
+
+    def netrunner_lifeway(self):
+        return("Твоя роль: Нетраннер")
+
+    def tech_lifeway(self):
+        return("Твоя роль: Техник")
+
+    def medtech_lifeway(self):
+        return("Твоя роль: Медтехник")
+
+    def media_lifeway(self):
+        return("Твоя роль: Медиа")
+
+    def lowyer_lifeway(self):
+        return("Твоя роль: Законник")
+
+    def corp_lifeway(self):
+        return("Твоя роль: Корпорат")
+
+    def nomad_lifeway(self):
+        return("Твоя роль: Кочевник")
+    
+    def generate_text(self):
+        # Сопоставление role_id с методом обработки
+        lifeway_method = {
+            1: self.rockerboy_lifeway,
+            2: self.solo_lifeway,
+            3: self.netrunner_lifeway,
+            4: self.tech_lifeway,
+            5: self.medtech_lifeway,
+            6: self.media_lifeway,
+            7: self.lowyer_lifeway,
+            8: self.corp_lifeway,
+            9: self.nomad_lifeway,
+        }
+
+        method = lifeway_method.get(self.role_id)
+        if method:
+            return method()
+        else:
+            raise ValueError("Ваш класс не определен")
+        
 
 if __name__ == "__main__":
+    role_id = fetch_and_print_record(
+        db_path=db_path,
+        table_name="ROLE",
+        record_id=randint(1,9),
+        fields=["text"],
+        message_format="Твоя роль:{text}"
+    )
+
     LifeWayCommon.__init__(db_path=db_path)
+    role_instance = LifeWayRole(role_id)
+    print(role_instance.generate_text())
